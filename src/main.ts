@@ -4,4 +4,7 @@ import App from './App.vue'
 import 'normalize.css'
 // 清除公共样式
 import '@/assets/styles/common.less'
-createApp(App).mount('#app')
+
+// 引入路由并注册
+import router from './router'
+createApp(App).use(router).mount('#app')

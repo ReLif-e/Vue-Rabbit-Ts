@@ -1,9 +1,13 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+// 取名的插件
+import vueSetupExtend from 'vite-plugin-vue-setup-extend'
+
 const path = require('path')
 // https://vitejs.dev/config/
+
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(),vueSetupExtend()],
   // 配置vite识别@符号
   resolve: {
     alias: {

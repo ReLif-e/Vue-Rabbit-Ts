@@ -1,11 +1,20 @@
 // 创建路由1
-import {createRouter, createWebHistory} from 'vue-router'
+import {createRouter, createWebHashHistory} from 'vue-router'
+import Layout from '@/views/layout/index.vue'
 const router = createRouter({
+  history:createWebHashHistory(),
   routes:[
-    // {}
-  ],
-  history:createWebHistory()
+    {
+      path:'/',
+      component: Layout
+    },
+    {
+      path:'/login',
+      component: () => import('@/views/login/index.vue')
+    }
+  ]
+ 
 })
 
-// 导出路由对象
+// 导出路由对象请求·
 export default router
