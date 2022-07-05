@@ -1,19 +1,25 @@
 <template>
       <ul class="app-header-nav">
         <li class="home"><RouterLink to="/">首页</RouterLink></li>
-        <li><a href="#">美食</a></li>
-        <li><a href="#">餐厨</a></li>
-        <li><a href="#">艺术</a></li>
-        <li><a href="#">电器</a></li>
-        <li><a href="#">居家</a></li>
-        <li><a href="#">洗护</a></li>
-        <li><a href="#">孕婴</a></li>
-        <li><a href="#">服装</a></li>
-        <li><a href="#">杂货</a></li>
+        <li v-for="item in list " :key="item.id"><router-link to="/">{{item.name}}</router-link></li>
+
+
       </ul>
 </template>
 
 <script setup lang="ts">
+// 导入pinia的index
+import category from '@/stores/modules/category';
+import { storeToRefs } from 'pinia';
+
+// 将组件赋值给cares
+const cares = category()
+
+// 将里面的数据解构出来，方便渲染,只能解构state的数据
+const {list,} = storeToRefs(cares)
+
+// 调用组件内的方法
+cares.getCategoryList()
 
 </script>
 
