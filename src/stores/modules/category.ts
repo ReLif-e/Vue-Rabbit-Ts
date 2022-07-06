@@ -29,14 +29,14 @@ export default defineStore('categoy',{
     show(id:string){
      const res =  this.list.find(item=>item.id === id)
      res!.open = true
-     console.log(1);
+    //  console.log(1);
     },
 
     // 鼠标离开
     hide(id:string){
       const res =  this.list.find(item=>item.id === id)
       res!.open = false
-      console.log(2);
+      // console.log(2);
     }
   }
 })

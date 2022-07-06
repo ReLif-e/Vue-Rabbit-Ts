@@ -1,23 +1,25 @@
 <script lang="ts" setup name="AppHeaderSticky">
 import { ref } from 'vue';
 import AppHeaderNav from './app-header-nav.vue'
-const Y = ref(0)
-
-// 获取页面滚动的距离
-window.addEventListener('scroll',()=>{
-  const scroll = document.documentElement.scrollTop
-  console.log(scroll);
-  Y.value = scroll
-})
+import {useWindowScroll} from '@vueuse/core'
+const {y} = useWindowScroll()
+// const Y = ref(0)
+// // 获取页面滚动的距离
+// window.addEventListener('scroll',()=>{
+//   const scroll = document.documentElement.scrollTop
+//   console.log(scroll);
+//   Y.value = scroll
+// })
 
 </script>
 
 <template>
 <!-- 判断页面滚动的距离是否超过68 -->
-  <div :class="{show:Y > 78}" class="app-header-sticky">
-  
+  <div :class="{show:y > 78}" class="app-header-sticky">
+
   <!-- 如果页面滚动的距离超过了78第二类盒子才出现 -->
-    <div class="container" v-if="Y > 78">
+    <div class="container" v-if="y > 78">
+
       <RouterLink class="logo" to="/" />
       <AppHeaderNav />
       <div class="right">
