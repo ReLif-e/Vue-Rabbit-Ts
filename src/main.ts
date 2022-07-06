@@ -8,7 +8,14 @@ import '@/assets/styles/common.less'
 // 引入路由并注册
 import router from './router'
 import {createPinia} from 'pinia'
-
+import MYUI from '@/components'
 const pinia = createPinia()
 
-createApp(App).use(pinia).use(router).mount('#app')
+const app = createApp(App)
+
+app.use(pinia)
+app.use(router)
+app.use(MYUI)
+app.mount('#app')
+
+// createApp(App).use(pinia).use(router).mount('#app')

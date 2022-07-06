@@ -1,7 +1,7 @@
 <script lang="ts" setup name="HomeCategory">
 import { computed, ref } from 'vue';
 import userStore from '../../../stores';
-import Skeleton  from '../../../components/skeleton/index.vue'
+
  const {category} = userStore()
 const ID = ref('')
 
@@ -30,8 +30,8 @@ const goods =computed(()=>{
            <RouterLink v-for="sub in item.children?.slice(0,2)" :to="`category/sub/${sub.id}`">{{sub.name}}</RouterLink>
         </template>
       <template v-else>
-          <Skeleton :width="50" :height="20" bg="rgba(255,255,255,.5)" animated />
-          <Skeleton style="margin-left: 5px;" :width="30" :height="20" bg="rgba(255,255,255,.5)" animated/>
+          <XtxSkeleton :width="50" :height="20" bg="rgba(255,255,255,.5)" animated />
+          <XtxSkeleton style="margin-left: 5px;" :width="30" :height="20" bg="rgba(255,255,255,.5)" animated/>
       </template>
       </li>
     </ul>
