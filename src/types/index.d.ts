@@ -6,6 +6,7 @@ export interface CategoryRes {
   picture:string
   children:CategoryRes[]
   open:boolean
+  goods:GoodItem[]
   }
   
 
@@ -13,6 +14,15 @@ export interface CategoryRes {
     code:string
     msg:string
     result:T[]
-
+    
   }
-  
+
+export interface GoodItem {
+  id: string;
+  name: string;
+  desc: string;
+  price: string;
+  picture: string;
+  discount?: any;
+  orderNum?: any;
+}
