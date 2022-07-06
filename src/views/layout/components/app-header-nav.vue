@@ -1,18 +1,31 @@
 <template>
       <ul class="app-header-nav">
-        <li class="home"><RouterLink to="/">首页</RouterLink></li>
-        <li v-for="item in list " :key="item.id"><router-link to="/">{{item.name}}</router-link>
-        <div class="layer">
+        <li class="home"><RouterLink to="/">首页</RouterLink></li>   
+             <!-- 没有id点击跳转的时候会跳转到首页👇router-link里面的三元 -->
+        <li 
+        v-for="item in list " 
+        :key="item.id"
+      
+        @mouseenter="cares.show(item.id)"
+        @mouseleave="cares.hide(item.id)"
+        >
+        <router-link 
+      
+        :to="item.id? `/category/${item.id}` :'/'"
+        @mouseleave="cares.hide(item.id)"
+        >{{item.name}}</router-link>
+        <!-- 这是渲染数据的盒子，所以添加的类是添加到这个盒子里面的 -->
+        <div  :class="{show:item.open}" class="layer">
         <ul>
           <!-- 判断渲染的数内有没有children数据 -->
           <li v-for="sub in item.children" :key="sub.id" v-if="item.children"> 
-            <a href="#">
+            <router-link :to="`/category/sub/${sub.id}`">
               <img
                 :src="sub.picture"
                 alt=""
               />
               <p>{{sub.name}}</p>
-            </a>
+            </router-link>
           </li>
         </ul>
       </div>
@@ -67,15 +80,19 @@ cares.getCategoryList()
         color: @xtxColor;
         border-bottom: 1px solid @xtxColor;
       }
-      > .layer {
-        height: 132px;
-        opacity: 1;
-      }
+      // > .layer {
+      //   height: 132px;
+      //   opacity: 1;
+      // }
     }
   }
 }
 // 新增样式
 .layer {
+  &.show{
+     height: 132px;
+     opacity: 1;
+  }
   width: 1240px;
   background-color: #fff;
   position: absolute;

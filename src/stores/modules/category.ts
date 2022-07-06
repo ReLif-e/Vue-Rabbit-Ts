@@ -18,8 +18,25 @@ export default defineStore('categoy',{
     async getCategoryList(){
       const res = await axios.get<ApiRes<CategoryRes>>('/home/category/head')
       console.log(res);
+      res.data.result.forEach(item=>{
+        item.open = false
+      })
       this.list = res.data.result
       
-    }  
+    }  ,
+
+    // 鼠标经过
+    show(id:string){
+     const res =  this.list.find(item=>item.id === id)
+     res!.open = true
+     console.log(1);
+    },
+
+    // 鼠标离开
+    hide(id:string){
+      const res =  this.list.find(item=>item.id === id)
+      res!.open = false
+      console.log(2);
+    }
   }
 })

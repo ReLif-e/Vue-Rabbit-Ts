@@ -5,6 +5,7 @@ export interface CategoryRes {
   name:string
   picture:string
   children:CategoryRes[]
+  open:boolean
   }
   
 
@@ -12,5 +13,6 @@ export interface CategoryRes {
     code:string
     msg:string
     result:T[]
+
   }
   
