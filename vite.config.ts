@@ -7,7 +7,9 @@ const path = require('path')
 // https://vitejs.dev/config/
 
 export default defineConfig({
-  plugins: [vue(),vueSetupExtend()],
+  plugins: [vue({
+    reactivityTransform:true
+  }),vueSetupExtend()],
   // 配置vite识别@符号
   resolve: {
     alias: {

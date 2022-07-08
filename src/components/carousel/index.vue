@@ -1,12 +1,14 @@
 <script lang="ts" setup name="XtxCarousel">
-// 
 
 import { BannerItem } from '@/types';
-import { log } from 'console';
+
 import { onMounted, onUnmounted, ref } from 'vue';
 
-const props = defineProps<{
+// 设置默认值
+const {sildes,autoplay=true,duration=500} = defineProps<{
   sildes:BannerItem[]
+  autoplay?:boolean
+  duration?:number
 }>()
 
 const active = ref(0)
@@ -19,10 +21,12 @@ const prev = ()=>{
 }
 
 const next = ()=>{
-active.value ++
-  if(active.value >= props.sildes.length){
-    active.value = 0
-  }
+  // 没有传autoplay就不自播放
+  if(!autoplay) return
+   active.value ++
+    if(active.value >= sildes.length){
+      active.value = 0
+    }
     console.log(1);
 
 }
@@ -36,11 +40,11 @@ const stop = ()=>{
 clearInterval(timerId)
 }
 
-// 鼠标移开·1
+// 鼠标移开
 const start = ()=>{
     timerId = window.setInterval(()=>{
       next()
-    },1000)
+    },duration)
     console.log(1);
     
 }
@@ -81,7 +85,12 @@ onUnmounted(()=>{
 
     <!-- 底部圆点 -->
     <div class="carousel-indicator">
-      <span v-for="(item,index) in sildes" :key="item.id" :class="{active: active === index}"></span>
+      <span
+       v-for="(item,index) in sildes" 
+       :key="item.id" 
+       :class="{active: active === index}"
+       @click="active = index"
+       ></span>
     </div>
 
   </div>
