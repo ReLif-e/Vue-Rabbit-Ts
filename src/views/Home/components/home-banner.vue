@@ -20,8 +20,8 @@ home.GetBannerList()
   top: 0;
   z-index: 98;
   background-color: pink;
-  
-  // 深度选择器
+
+  // 深度选择器1
   :deep(.carousel-btn.prev) {
   left: 270px!important;
 }
