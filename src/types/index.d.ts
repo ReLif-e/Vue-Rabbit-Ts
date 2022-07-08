@@ -27,10 +27,29 @@ export interface GoodItem {
   orderNum?: any;
 }
 
-
-interface BannerItem {
+// 轮播图
+export interface BannerItem {
   id: string;
   imgUrl: string;
   hrefUrl: string;
   type: string;
+}
+
+// 新鲜好物
+export interface NewItem {
+  id: string;
+  name: string;
+  desc: string;
+  price: string;
+  picture: string;
+  discount?: any;
+  orderNum: number;
+}
+
+// 人气推荐
+export interface HotItem {
+  id: string;
+  picture: string;
+  title: string;
+  alt: string;
 }
