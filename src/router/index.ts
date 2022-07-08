@@ -22,6 +22,11 @@ const router = createRouter({
           path:'category/sub/:id', //显示隐藏的路由--居家生活、收纳...
           component:()=>import('@/views/category/sub.vue')
         },
+        {            
+          path:'play',
+          component:()=>import('@/views/playgroud/index.vue')
+        },
+        
       ]
     },
     {

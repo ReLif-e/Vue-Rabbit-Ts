@@ -16,10 +16,10 @@ export default defineStore('home',{
    actions:{
     async GetBannerList(){
       const res = await axios.get<ApiRes<BannerItem>>('/home/banner')
-      console.log(res);
+      // console.log(res);
       this.BannerList = res.data.result
     },
-    
+
 // 新鲜好物
     async GetNewList(){
       const res = await axios.get<ApiRes<NewItem>>('/home/new')

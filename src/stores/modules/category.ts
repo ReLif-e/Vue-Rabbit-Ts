@@ -17,7 +17,7 @@ export default defineStore('categoy',{
   actions:{
     async getCategoryList(){
       const res = await axios.get<ApiRes<CategoryRes>>('/home/category/head')
-      console.log(res);
+      // console.log(res);
       res.data.result.forEach(item=>{
         item.open = false
       })
