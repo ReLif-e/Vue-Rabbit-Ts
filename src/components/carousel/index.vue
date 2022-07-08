@@ -1,10 +1,9 @@
 <script lang="ts" setup name="XtxCarousel">
-
 import { BannerItem } from '@/types';
-
 import { onMounted, onUnmounted, ref } from 'vue';
 
-// 设置默认值
+
+// 设置默认值，一定要在viewDepthKey.config.ts中配置开启可以赋值默认值
 const {sildes,autoplay=true,duration=500} = defineProps<{
   sildes:BannerItem[]
   autoplay?:boolean
@@ -27,7 +26,7 @@ const next = ()=>{
     if(active.value >= sildes.length){
       active.value = 0
     }
-    console.log(1);
+    // console.log(1);
 
 }
 
@@ -45,7 +44,7 @@ const start = ()=>{
     timerId = window.setInterval(()=>{
       next()
     },duration)
-    console.log(1);
+    // console.log(1);
     
 }
 
@@ -64,7 +63,7 @@ onUnmounted(()=>{
 <template>
   <div class="xtx-carousel" @mouseenter="stop" @mouseleave="start">
     <!-- 轮播图 -->
-    <ul class="carousel-body">
+    <ul class="carousel-body" v-if="sildes.length !== 0 ">
       <li v-for="item,index in sildes" :key="item.id" class="carousel-item" :class="{fade:index === active}">
         <RouterLink to="/">
           <img
@@ -74,6 +73,7 @@ onUnmounted(()=>{
         </RouterLink>
       </li>
     </ul>
+     <XtxSkeleton v-else :width="1240" :height="500" bg="rgba(125,215,55,.5)" animated />
 
     <!-- 左右按钮 -->
     <a href="javascript:;" class="carousel-btn prev" @click="prev"
