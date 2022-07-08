@@ -15,7 +15,7 @@ export default {
     app.directive('lazy',{
       mounted(el,binding){
         console.log(binding);
-        // 监听图片是否在可视区
+        // 监听图片是否在可视区 
         useIntersectionObserver(el,([{isIntersecting}])=>{
           console.log(isIntersecting);
           if(isIntersecting){
