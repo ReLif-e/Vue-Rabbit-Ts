@@ -1,48 +1,89 @@
 <script lang="ts" setup name="XtxCarousel">
+// 
+
+import { BannerItem } from '@/types';
+import { log } from 'console';
+import { onMounted, onUnmounted, ref } from 'vue';
+
+const props = defineProps<{
+  sildes:BannerItem[]
+}>()
+
+const active = ref(0)
+
+const prev = ()=>{
+  active.value --
+  if(active.value < 0){
+    active.value = 0
+  }
+}
+
+const next = ()=>{
+active.value ++
+  if(active.value >= props.sildes.length){
+    active.value = 0
+  }
+    console.log(1);
+
+}
+
+
+
+let timerId = -1
+
+// 鼠标进入
+const stop = ()=>{
+clearInterval(timerId)
+}
+
+// 鼠标移开
+const start = ()=>{
+    timerId = window.setInterval(()=>{
+      next()
+    },1000)
+    console.log(1);
+    
+}
+
+// 组件打开时执行
+onMounted(() => {
+     start()
+})
+
+// 组件关闭时
+onUnmounted(()=>{
+  // stop()
+})
 
 </script>
 
 <template>
-  <div class="xtx-carousel">
+  <div class="xtx-carousel" @mouseenter="stop" @mouseleave="start">
+    <!-- 轮播图 -->
     <ul class="carousel-body">
-      <li class="carousel-item fade">
+      <li v-for="item,index in sildes" :key="item.id" class="carousel-item" :class="{fade:index === active}">
         <RouterLink to="/">
           <img
-            src="http://yjy-xiaotuxian-dev.oss-cn-beijing.aliyuncs.com/picture/2021-04-15/1ba86bcc-ae71-42a3-bc3e-37b662f7f07e.jpg"
-            alt=""
-          />
-        </RouterLink>
-      </li>
-      <li class="carousel-item">
-        <RouterLink to="/">
-          <img
-            src="http://yjy-xiaotuxian-dev.oss-cn-beijing.aliyuncs.com/picture/2021-04-15/1ba86bcc-ae71-42a3-bc3e-37b662f7f07e.jpg"
-            alt=""
-          />
-        </RouterLink>
-      </li>
-      <li class="carousel-item">
-        <RouterLink to="/">
-          <img
-            src="http://yjy-xiaotuxian-dev.oss-cn-beijing.aliyuncs.com/picture/2021-04-15/1ba86bcc-ae71-42a3-bc3e-37b662f7f07e.jpg"
+            :src="item.imgUrl"
             alt=""
           />
         </RouterLink>
       </li>
     </ul>
-    <a href="javascript:;" class="carousel-btn prev"
+
+    <!-- 左右按钮 -->
+    <a href="javascript:;" class="carousel-btn prev" @click="prev"
       ><i class="iconfont icon-angle-left"></i
     ></a>
-    <a href="javascript:;" class="carousel-btn next"
+    <a href="javascript:;" class="carousel-btn next" @click="next"
       ><i class="iconfont icon-angle-right"></i
     ></a>
+
+    <!-- 底部圆点 -->
     <div class="carousel-indicator">
-      <span class="active"></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
+      <span v-for="(item,index) in sildes" :key="item.id" :class="{active: active === index}"></span>
     </div>
+
   </div>
 </template>
 

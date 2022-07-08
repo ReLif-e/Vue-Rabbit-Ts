@@ -7,7 +7,8 @@ home.GetBannerList()
 <template>
   <div class="home-banner">
     <!-- 轮播图 -->
-    <xtx-carousel />
+    <!-- 将数据传入组件内，方便以后使用轮播图复用 -->
+    <xtx-carousel :sildes='home.BannerList'/>
   </div>
 </template>
 

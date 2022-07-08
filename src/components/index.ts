@@ -4,7 +4,7 @@ import XtxCarousel from '@/components/carousel/index.vue'
 
 export default {
   install(app: App) {
-    app.component('XtxSkeleton', XtxSkeleton)
-    app.component('XtxCarousel', XtxCarousel)
+    app.component(XtxSkeleton.name, XtxSkeleton)
+    app.component(XtxCarousel.name, XtxCarousel)
   }
 }
