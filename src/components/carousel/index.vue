@@ -36,7 +36,7 @@ const stop = ()=>{
 clearInterval(timerId)
 }
 
-// 鼠标移开
+// 鼠标移开·1
 const start = ()=>{
     timerId = window.setInterval(()=>{
       next()
@@ -55,7 +55,7 @@ onUnmounted(()=>{
   // stop()
 })
 
-</script>
+</script> 
 
 <template>
   <div class="xtx-carousel" @mouseenter="stop" @mouseleave="start">
