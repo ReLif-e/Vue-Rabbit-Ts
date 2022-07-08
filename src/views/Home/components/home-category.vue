@@ -6,7 +6,7 @@ import userStore from '../../../stores';
 const ID = ref('')
 
 const getCateId = (id:string)=>{
-  console.log(id);
+  // console.log(id);
   ID.value = id
 }
 

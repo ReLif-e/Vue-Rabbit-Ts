@@ -26,3 +26,11 @@ export interface GoodItem {
   discount?: any;
   orderNum?: any;
 }
+
+
+interface BannerItem {
+  id: string;
+  imgUrl: string;
+  hrefUrl: string;
+  type: string;
+}

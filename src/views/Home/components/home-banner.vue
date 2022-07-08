@@ -1,7 +1,13 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import userStore from '@/stores';
+
+const {home} = userStore()
+home.GetBannerList()
+</script>
 <template>
   <div class="home-banner">
     <!-- 轮播图 -->
+    <xtx-carousel />
   </div>
 </template>
 
@@ -14,5 +20,13 @@
   top: 0;
   z-index: 98;
   background-color: pink;
+  
+  // 深度选择器
+  :deep(.carousel-btn.prev) {
+  left: 270px!important;
+}
+  :deep(.carousel-indicator) {
+    padding-left: 250px;
+  }
 }
 </style>
