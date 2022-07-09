@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 import axios from '@/utils/request'
-import { ApiRes, CategoryRes } from '@/types'
+import { ApiRes, CategoryRes, TopCategory } from '@/types'
 import {topCategory} from './constant'
 const userCate = topCategory.map((item)=>{
   // 渲染一个假name数据代替请求结束后的
@@ -10,7 +10,8 @@ const userCate = topCategory.map((item)=>{
 export default defineStore('categoy',{
   state() {
       return{
-        list:userCate as CategoryRes[]
+        list:userCate as CategoryRes[],
+        TopCategory:{} as TopCategory
       }
   },
   
@@ -37,6 +38,17 @@ export default defineStore('categoy',{
       const res =  this.list.find(item=>item.id === id)
       res!.open = false
       // console.log(2);
+    },
+
+    async getTopCategory(id:string){
+      const res = await axios.get('/category',{
+        params:{
+          id
+        }
+      })
+      this.TopCategory = res.data.result
+
+      
     }
   }
 })

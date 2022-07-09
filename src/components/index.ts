@@ -2,6 +2,9 @@ import { App } from 'vue'
 import XtxSkeleton from '@/components/skeleton/index.vue'
 import XtxCarousel from '@/components/carousel/index.vue'
 import XtxMore from '@/components/more/index.vue'
+import XtxBread from '@/components/bread/index.vue'
+import XtxBreadItem from '@/components/bread/item.vue'
+
 import { useIntersectionObserver } from '@vueuse/core'
 import dImage from '@/assets/images/200.png'
 
@@ -10,6 +13,8 @@ export default {
     app.component(XtxSkeleton.name, XtxSkeleton)
     app.component(XtxCarousel.name, XtxCarousel)
     app.component(XtxMore.name, XtxMore)
+    app.component(XtxBread.name, XtxBread)
+    app.component(XtxBreadItem.name, XtxBreadItem)
  
 
     // 自定义指令directive
