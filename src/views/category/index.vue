@@ -25,7 +25,7 @@ const {category} = userStore()
  watch(()=>router.params.id,()=>{
   // 坑，未填
   if(!router.params.id) return
-   category.getTopCategory(router.params.id as string) //路由id传进去
+   category.getTopCategory(router.params.id as string) //路由id传进去1
  },{
   immediate:true  //第一次进入就开启
  })
