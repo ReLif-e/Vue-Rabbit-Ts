@@ -12,7 +12,7 @@ const target = ref(null)
 const {stop} = useIntersectionObserver(target,([{isIntersecting}])=>{
   if(isIntersecting){
     home.GetHotList()
-    // 停止监听视图1
+    // 停止监听视图11
     stop()
   }
 })
