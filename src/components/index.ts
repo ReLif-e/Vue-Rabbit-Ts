@@ -14,14 +14,18 @@ export default {
     // 自定义指令directive
     app.directive('lazy',{
       mounted(el,binding){
-        console.log(binding);
+        // console.log(binding);
         // 监听图片是否在可视区 
         useIntersectionObserver(el,([{isIntersecting}])=>{
-          console.log(isIntersecting);
+          // console.log(isIntersecting);
           if(isIntersecting){
             el.src = binding.value
           }
         })
+        el.onerror = () =>{
+          console.log(1);
+          
+        }
       }
     })
   }

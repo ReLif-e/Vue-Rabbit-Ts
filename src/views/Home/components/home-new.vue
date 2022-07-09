@@ -2,12 +2,26 @@
 import HomePanel from './home-panel.vue';
 
 import userStore from '@/stores';
+import { ref } from 'vue';
+import { useIntersectionObserver } from '@vueuse/core';
 const {home} = userStore()
+
+const target = ref(null)
+
+// 数据懒加载
+const {stop} = useIntersectionObserver(target,([{isIntersecting}])=>{
+  if(isIntersecting){
+    home.GetHotList()
+    // 停止监听视图
+    stop()
+  }
+})
+
 home.GetNewList()
 </script>
 
 <template>
-    <HomePanel title="新鲜好物" subTitle="新鲜出炉 品质离谱" >
+    <HomePanel ref="target" title="新鲜好物" subTitle="新鲜出炉 品质离谱" >
         <template #right>
             <XtxMore />
         </template>

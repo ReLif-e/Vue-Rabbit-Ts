@@ -2,12 +2,25 @@
 <script setup lang="ts">
 import HomePanel from './home-panel.vue';
 import userStore from '@/stores';
+import { ref } from 'vue';
+import { useIntersectionObserver } from '@vueuse/core';
+
 const {home} = userStore()
-home.GetHotList()
+
+const target = ref(null)
+
+const {stop} = useIntersectionObserver(target,([{isIntersecting}])=>{
+  if(isIntersecting){
+    home.GetHotList()
+    stop()
+  }
+})
+
+
 </script>
 
 <template>
-  <HomePanel title="人气推荐" sub-title="人气爆款 不容错过">
+  <HomePanel ref="target" title="人气推荐" sub-title="人气爆款 不容错过">
     <ul ref="pannel" class="goods-list">
       <li v-for="item in home.HotList" :key="item.id">
         <RouterLink to="/">
