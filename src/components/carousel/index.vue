@@ -15,7 +15,7 @@ const active = ref(0)
 const prev = ()=>{
   active.value --
   if(active.value < 0){
-    active.value = 0
+    active.value =sildes.length - 1
   }
 }
 

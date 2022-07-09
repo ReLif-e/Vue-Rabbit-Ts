@@ -81,7 +81,7 @@ export interface GoodsItem {
   goods: Good[];
 }
 
-interface Good {
+export interface Good {
   id: string;
   name: string;
   desc: string;
@@ -91,7 +91,7 @@ interface Good {
   orderNum: number;
 }
 
-interface Child {
+export interface Child {
   id: string;
   name: string;
   layer: number;
@@ -102,7 +102,7 @@ interface Child {
 
 
 // 专题
-interface specialItem {
+export interface specialItem {
   creator: string;
   isDelete: number;
   createTime: string;
