@@ -2,6 +2,7 @@
 import HomePanel from './home-panel.vue';
 import userStore from '@/stores';
 import { useLazyData } from '@/utils/hooks';
+import HomeSkeleton from './home-skeleton.vue';
 const {home} = userStore()
 
 
@@ -37,19 +38,22 @@ const target = useLazyData(home.GetNewList)
         <template #right>
             <XtxMore />
         </template>
-          <ul class="goods-list">
-            <li v-for="item in home.NewList" :key="item.id">
-              <RouterLink to="/">
+        <Transition name="fade">
+        <ul v-if="home.NewList.length" class="goods-list">
+         <li v-for="item in home.NewList" :key="item.id">
+           <RouterLink to="/">
                 <img
                   v-lazy="item.picture"
                   alt=""
                />
                 <p class="name ellipsis">{{item.name}}</p>
                 <p class="price">&yen;{{item.price}}</p>
-              </RouterLink>
-          </li>
+           </RouterLink>
+         </li>
         </ul>
-      </HomePanel> 
+        <HomeSkeleton v-else :count="4" />
+      </Transition>
+    </HomePanel> 
 </template>
 
 

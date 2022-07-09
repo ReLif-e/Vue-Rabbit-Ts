@@ -4,6 +4,7 @@ import HomeCategory from './components/home-category.vue'
 import HomePanel from './components/home-panel.vue';
 import HomeNew from './components/home-new.vue';
 import HomeHot from './components/home-hot.vue';
+import HomeBrand from './components/home-brand.vue';
 </script>
 
 <template>
@@ -22,6 +23,8 @@ import HomeHot from './components/home-hot.vue';
 
         <!-- 人气推荐 -->
       <HomeHot />
+
+      <HomeBrand />
   </div>
 </template>
 
