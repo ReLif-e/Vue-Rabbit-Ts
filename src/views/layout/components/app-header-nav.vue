@@ -46,10 +46,10 @@ import { storeToRefs } from 'pinia';
 const cares = category()
 
 // 将里面的数据解构出来，方便渲染,只能解构state的数据
-const {list,} = storeToRefs(cares)
+const {list} = storeToRefs(cares)
 
 // 调用组件内的方法
-cares.getCategoryList()
+// cares.getCategoryList()
 
 </script>
 

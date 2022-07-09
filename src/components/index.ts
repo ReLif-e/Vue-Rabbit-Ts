@@ -3,6 +3,7 @@ import XtxSkeleton from '@/components/skeleton/index.vue'
 import XtxCarousel from '@/components/carousel/index.vue'
 import XtxMore from '@/components/more/index.vue'
 import { useIntersectionObserver } from '@vueuse/core'
+import dImage from '@/assets/images/200.png'
 
 export default {
   install(app: App) {
@@ -22,9 +23,10 @@ export default {
             el.src = binding.value
           }
         })
+        // 捕获图片加载失败
         el.onerror = () =>{
-          console.log(1);
-          
+          // 加载失败后加载默认的图片
+          el.src = dImage
         }
       }
     })

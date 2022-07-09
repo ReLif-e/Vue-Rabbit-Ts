@@ -2,19 +2,26 @@
 <script setup lang="ts">
 import HomePanel from './home-panel.vue';
 import userStore from '@/stores';
-import { ref } from 'vue';
-import { useIntersectionObserver } from '@vueuse/core';
+import { useLazyData } from '@/utils/hooks';
+// import { ref } from 'vue';
+// import { useIntersectionObserver } from '@vueuse/core';
 
 const {home} = userStore()
 
-const target = ref(null)
+// const target = ref(null)
 
-const {stop} = useIntersectionObserver(target,([{isIntersecting}])=>{
-  if(isIntersecting){
-    home.GetHotList()
-    stop()
-  }
-})
+// 在视图中再获取数据，参数一是要监听的元素，参数二是回调-isIntersecting表示是否出现在视图中
+// const {stop} = useIntersectionObserver(target,([{isIntersecting}])=>{
+//   if(isIntersecting){
+//     // 如果在视图里面就发送请求获取数据
+//     home.GetHotList()
+//     stop()
+//   }
+// })
+
+// 数据懒加载
+const target = useLazyData(home.GetHotList)
+
 
 
 </script>

@@ -1,23 +1,35 @@
 <script setup lang="ts">
 import HomePanel from './home-panel.vue';
-
 import userStore from '@/stores';
-import { ref } from 'vue';
-import { useIntersectionObserver } from '@vueuse/core';
+import { useLazyData } from '@/utils/hooks';
 const {home} = userStore()
 
-const target = ref(null)
+
 
 // 数据懒加载
-const {stop} = useIntersectionObserver(target,([{isIntersecting}])=>{
-  if(isIntersecting){
-    home.GetHotList()
-    // 停止监听视图11
-    stop()
-  }
-})
+// const {stop} = useIntersectionObserver(target,([{isIntersecting}])=>{
+//   if(isIntersecting){
+//     home.GetHotList()
+//     // 停止监听视图11
+//     stop()
+//   }
+// })
 
-home.GetNewList()
+
+// 将绑定的元素和调用接口的函数传递过去
+// useLazyData(target,()=>home.GetNewList())
+
+// hooks里面定义了一个ref的target 并在监听元素之前return了
+// 相当与是这这边调用了target，并把这个元素传递进去，
+//  这个变量默认是一个对象--因为他们共享的是同一个地址，修改一个另一个会一起变化
+// const target = useLazyData(()=>home.GetNewList())
+
+
+// 直接将这个函数当作参数传递进去，让另一边接收到了直接掉用
+const target = useLazyData(home.GetNewList)
+
+
+
 </script>
 
 <template>

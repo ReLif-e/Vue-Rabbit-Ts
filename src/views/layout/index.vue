@@ -3,6 +3,13 @@ import AppTopnav from './components/app-topnav.vue';
 import AppHeader from './components/app-header.vue';
 import AppFooter from './components/app-footer.vue';
 import AppHeaderStick from './components/app-header-stick.vue';
+import category from '@/stores/modules/category';
+
+// 将组件赋值给cares
+const cares = category()
+
+// 调用组件内的方法
+cares.getCategoryList()
 // ？
 </script>
 <template>
