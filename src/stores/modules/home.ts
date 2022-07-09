@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 import axios from '@/utils/request'
-import { ApiRes, BannerItem, BrandItem, HotItem, NewItem } from '@/types'
+import { ApiRes, BannerItem, BrandItem, GoodsItem, HotItem, NewItem } from '@/types'
 
 
 
@@ -10,7 +10,8 @@ export default defineStore('home',{
        BannerList:[] as BannerItem[],
        NewList:[] as NewItem[],
        HotList:[] as HotItem[],
-       BrandList:[] as BrandItem[]
+       BrandList:[] as BrandItem[],
+       ProbuctList:[] as GoodsItem[]
       } 
   },
   
@@ -38,9 +39,14 @@ export default defineStore('home',{
     // 热门品牌
     async GetBrandList(){
       const res = await axios.get<ApiRes<BrandItem>>('/home/brand')
-
-      
       this.BrandList = res.data.result
     },
+
+      // 生鲜
+      async GetProbuctList(){
+        const res = await axios.get<ApiRes<GoodsItem>>('/home/goods')
+        // console.log(res);
+        this.ProbuctList = res.data.result
+      }
   }
 })

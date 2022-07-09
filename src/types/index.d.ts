@@ -66,3 +66,34 @@ export type BrandItem = {
   desc: string
   place: string
 }
+
+
+
+
+
+// 生鲜
+export interface GoodsItem {
+  id: string;
+  name: string;
+  picture: string;
+  saleInfo: string;
+  children: Child[];
+  goods: Good[];
+}
+
+interface Good {
+  id: string;
+  name: string;
+  desc: string;
+  price: string;
+  picture: string;
+  discount?: any;
+  orderNum: number;
+}
+
+interface Child {
+  id: string;
+  name: string;
+  layer: number;
+  parent?: any;
+}

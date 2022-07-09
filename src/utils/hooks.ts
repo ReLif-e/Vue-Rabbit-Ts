@@ -9,6 +9,9 @@ export function useLazyData(callback:()=>void){
       callback()
       stop()
     }
+  },{
+    // 只要漏一点就发送触发回调----阈值
+    threshold:0
   })
   return target
 }
