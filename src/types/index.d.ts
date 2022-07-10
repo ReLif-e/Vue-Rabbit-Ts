@@ -1,4 +1,4 @@
-// 类型声明文件1
+// 类型声明文件11
 
 export interface CategoryRes {
   id:string
