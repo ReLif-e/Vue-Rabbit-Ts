@@ -8,11 +8,12 @@
       
         @mousemove="cares.show(item.id)"
         @mouseleave="cares.hide(item.id)"
+        @click="cares.hide(item.id)"
         >
         <router-link 
       
         :to="item.id? `/category/${item.id}` :'/'"
-        @mouseleave="cares.hide(item.id)"
+      
         >{{item.name}}</router-link>
         <!-- 这是渲染数据的盒子，所以添加的类是添加到这个盒子里面的 -->
         <div  :class="{show:item.open}" class="layer">
