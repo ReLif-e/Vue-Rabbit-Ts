@@ -18,34 +18,34 @@ export default defineStore('home',{
   
    actions:{
     async GetBannerList(){
-      const res = await axios.get<ApiRes<BannerItem>>('/home/banner')
+      const res = await axios.get<ApiRes<BannerItem[]>>('/home/banner')
       // console.log(res);
       this.BannerList = res.data.result
     },
 
 // 新鲜好物
     async GetNewList(){
-      const res = await axios.get<ApiRes<NewItem>>('/home/new')
+      const res = await axios.get<ApiRes<NewItem[]>>('/home/new')
       // console.log(res);
       this.NewList = res.data.result
     },
 
   // 人气推荐
     async GetHotList(){
-      const res = await axios.get<ApiRes<HotItem>>('/home/hot')
+      const res = await axios.get<ApiRes<HotItem[]>>('/home/hot')
       // console.log(res);
       this.HotList = res.data.result
     },
 
     // 热门品牌
     async GetBrandList(){
-      const res = await axios.get<ApiRes<BrandItem>>('/home/brand')
+      const res = await axios.get<ApiRes<BrandItem[]>>('/home/brand')
       this.BrandList = res.data.result
     },
 
       // 生鲜
       async GetProbuctList(){
-        const res = await axios.get<ApiRes<GoodsItem>>('/home/goods')
+        const res = await axios.get<ApiRes<GoodsItem[]>>('/home/goods')
         // console.log(res);
         this.ProbuctList = res.data.result
       },
@@ -54,7 +54,7 @@ export default defineStore('home',{
       
       // 生鲜
       async GetSpecialList(){
-        const res = await axios.get<ApiRes<specialItem>>('/home/special')
+        const res = await axios.get<ApiRes<specialItem[]>>('/home/special')
         // console.log(res);
         this.SpecialList = res.data.result
       }

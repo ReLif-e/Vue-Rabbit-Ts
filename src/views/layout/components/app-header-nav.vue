@@ -6,7 +6,7 @@
         v-for="item in list " 
         :key="item.id"
       
-        @mouseenter="cares.show(item.id)"
+        @mousemove="cares.show(item.id)"
         @mouseleave="cares.hide(item.id)"
         >
         <router-link 

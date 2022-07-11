@@ -13,7 +13,7 @@ export interface CategoryRes {
  export interface ApiRes<T> {
     code:string
     msg:string
-    result:T[]
+    result:T
     
   }
 
@@ -121,4 +121,97 @@ export type TopCategory = {
   name: string
   picture: string
   children: CategoryRes[]
+}
+
+
+
+
+
+
+// // 二级面包屑
+// export interface SubItem {
+//   code: string;
+//   msg: string;
+//   result: Result;
+// }
+
+// interface Result {
+//   id: string;
+//   name: string;
+//   picture?: any;
+//   parentId: string;
+//   parentName: string;
+//   goods: Good[];
+//   categories: Category[];
+//   brands: Brand[];
+//   saleProperties: SaleProperty[];
+// }
+
+// interface SaleProperty {
+//   id: string;
+//   name: string;
+//   properties: Property[];
+// }
+
+// interface Property {
+//   id: string;
+//   name: string;
+// }
+
+// interface Brand {
+//   id: string;
+//   name: string;
+//   nameEn: string;
+//   logo: string;
+//   picture: string;
+//   type?: any;
+//   desc: string;
+//   place: string;
+// }
+
+// interface Category {
+//   id: string;
+//   name: string;
+//   layer: number;
+//   parent?: any;
+// }
+
+// interface Good {
+//   id: string;
+//   name: string;
+//   desc: string;
+//   price: string;
+//   picture: string;
+//   discount?: any;
+//   orderNum: number;
+// }
+
+
+
+export type SaleProperty = {
+  id: string
+  name: string
+  properties: {
+    id: string
+    name: string
+  }[]
+}
+
+export type SubItem = {
+  id: string
+  name: string
+  picture?: any
+  parentId: string
+  parentName: string
+  brands: {
+    id: string
+    name: string
+    nameEn: string
+    logo: string
+    picture: string
+    type?: any
+    desc: string
+    place: string
+  }[]
+  saleProperties: SaleProperty[]
 }

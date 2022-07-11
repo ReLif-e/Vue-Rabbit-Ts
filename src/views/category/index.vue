@@ -25,7 +25,7 @@
       </div>
 
       <!-- 分类关联商品 -->
-      <div class="ref-goods" v-for="item in TopCategory.children">
+      <div v-if="TopCategory.children" class="ref-goods" v-for="item in TopCategory.children">
         <div class="head">
           <h3>- {{item.name}} -</h3>
           <p class="tag">温暖柔软，品质之选</p>
@@ -36,6 +36,17 @@
         </div>
       </div>
 
+      <!-- 分类关联商品           骨架屏 -->
+      <div v-else class="ref-goods" v-for="i in 5">
+        <div class="head">
+          <h3><XtxSkeleton :height="30" :width="300" animated /></h3>
+          <p class="tag"></p>
+          <XtxSkeleton style="position: absolute; right: 20px; top: 40px;" :height="21" :width="70" animated />
+        </div>
+        <div class="body" style="display: flex; justify-content: space-between;">
+           <XtxSkeleton :height="300" :width="200" animated v-for="item in 5" :key="item" />
+        </div>
+      </div>
 
 
   </div>
@@ -63,10 +74,13 @@ const {category,home} = userStore()
 //   immediate:true  //第一次进入就开启
 //  })
 
+// 获取轮播图数据
+home.GetBannerList()
 
 // 类似于计算属性，里面使用得数据变化会执行
 watchEffect(()=>{
-   if(!router.params.id) return
+  if(router.fullPath !== '/category/' + router.params.id) return
+  //  if(!router.params.id) return
    category.getTopCategory(router.params.id as string) 
 })
 
