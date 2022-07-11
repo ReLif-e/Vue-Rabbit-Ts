@@ -68,9 +68,6 @@ export type BrandItem = {
 }
 
 
-
-
-
 // 生鲜
 export interface GoodsItem {
   id: string;
@@ -117,4 +114,11 @@ export interface specialItem {
   collectNum: number;
   viewNum: number;
   replyNum: number;
+}
+// 顶级分类类型
+export type TopCategory = {
+  id: string
+  name: string
+  picture: string
+  children: CategoryRes[]
 }

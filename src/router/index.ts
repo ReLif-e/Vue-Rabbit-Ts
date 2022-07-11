@@ -4,6 +4,7 @@ import Layout from '@/views/layout/index.vue'
 import Home from '@/views/Home/index.vue'
 const router = createRouter({
   history:createWebHashHistory(),
+  
   routes:[
     {
       path:'/',
@@ -33,7 +34,8 @@ const router = createRouter({
       path:'/login',
       component: () => import('@/views/login/index.vue')
     }
-  ]
+  ],
+  
  
 })
 
