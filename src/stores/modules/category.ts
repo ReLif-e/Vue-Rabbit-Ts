@@ -59,6 +59,11 @@ export default defineStore('categoy',{
         }
       })
       this.SubCategory = res.data.result
+    },
+
+    // 清空数据
+    RemoveList(){
+      this.SubCategory = {} as SubItem
     }
   }
 })
