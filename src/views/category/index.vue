@@ -48,7 +48,7 @@
         </div>
       </div>
 
-
+      <GoodsItem />
   </div>
  </div>
 </template>

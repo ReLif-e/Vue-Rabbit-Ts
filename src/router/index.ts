@@ -30,6 +30,11 @@ const router = createRouter({
           path:'play',
           component:()=>import('@/views/playgroud/index.vue')
         },
+        {
+          path:'goods/:id', 
+          component:()=>import('@/views/goods/index.vue')
+        },
+  
         
       ]
     },
