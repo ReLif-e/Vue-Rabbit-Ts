@@ -1,11 +1,19 @@
 <script lang="ts" setup name="GoodName">
+import { CityResult } from '@/components/city/index.vue';
 import { GoodsInfo } from '@/types';
+import { ref } from 'vue';
 
   defineProps<{
     goods:GoodsInfo
   }>()
 
 
+  const adress = ref('北京省 北京市 朝阳区')
+  
+const changeCity = (city:CityResult)=>{
+  console.log(city);
+  adress.value = `${city.provinceName} ${city.cityName} ${city.countyName}`
+}
 </script>
 <template>
   <p class="g-name">{{goods.name}}</p>
@@ -21,7 +29,7 @@ import { GoodsInfo } from '@/types';
     </dl>
     <dl>
       <dt>配送</dt>
-      <dd>至 <XtxCity /> </dd>
+      <dd>至 <XtxCity  @changeCity="changeCity"  :adress="adress" /> </dd>
     </dl>
     <dl>
       <dt>服务</dt>

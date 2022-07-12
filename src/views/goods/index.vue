@@ -6,6 +6,7 @@ import { useRoute } from 'vue-router';
 import GoodsImages from './components/goods-images.vue';
 import GoodsSales from './components/goods-sales.vue';
 import GoodsName from './components/goods-name.vue';
+import { CityResult } from '@/components/city/index.vue';
 
 const route = useRoute()
 console.log(route.params.id);
@@ -18,7 +19,10 @@ watchEffect(()=>{
 
 })
 
-
+const changeCity = (e:CityResult)=>{
+  console.log(e);
+  
+}
 
 </script>
 <template>
@@ -50,7 +54,7 @@ watchEffect(()=>{
            <GoodsSales />
           </div>
           <div class="spec">
-            <GoodsName :goods="goods.Info" />
+            <GoodsName   :goods="goods.Info" />
           </div>
         </div>
 
