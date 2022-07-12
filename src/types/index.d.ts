@@ -245,4 +245,14 @@ export type GoodsInfo = {
     id: string
     name: string
   }[]
+  specs:Skus[]
+}
+
+type Skus = {
+  name: string
+  values: {
+    desc: string
+    name: string
+    picture: string
+  }[]
 }

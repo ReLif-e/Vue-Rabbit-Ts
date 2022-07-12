@@ -7,6 +7,7 @@ import GoodsImages from './components/goods-images.vue';
 import GoodsSales from './components/goods-sales.vue';
 import GoodsName from './components/goods-name.vue';
 import { CityResult } from '@/components/city/index.vue';
+import GoodsSku from './components/goods-sku.vue';
 
 const route = useRoute()
 console.log(route.params.id);
@@ -55,6 +56,7 @@ const changeCity = (e:CityResult)=>{
           </div>
           <div class="spec">
             <GoodsName   :goods="goods.Info" />
+            <GoodsSku    :goods="goods.Info" />
           </div>
         </div>
 
