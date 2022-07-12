@@ -8,7 +8,7 @@ import { ref } from 'vue';
   }>()
 
 
-  const adress = ref('北京省 北京市 朝阳区')
+  const adress = ref('北京省 北京市 朝阳区 ')
   
 const changeCity = (city:CityResult)=>{
   console.log(city);
