@@ -1,9 +1,18 @@
 <script setup lang="ts" name="GoodsSku">
-import { GoodsInfo } from '@/types';
+import { GoodsInfo, Skus, Values } from '@/types';
 
   defineProps<{
     goods:GoodsInfo
   }>()
+
+  // 点击事件，设置类得，获取高亮
+  const ChangeSelected = (sub: Values,item:Skus) =>{
+    // 排他思想，先删除全部得类，再赋值类
+    item.values.forEach((item)=>item.selected = false)
+
+    // 将类状态取反,设置高亮，设置类
+    sub.selected = !sub.selected
+  }
 
 </script>
 <template>
@@ -15,12 +24,13 @@ import { GoodsInfo } from '@/types';
         <!-- 判断有没有图片地址有就渲染图片，没有就渲染文字 -->
           <img
           v-if="sub.picture"
-          class="selected"
+          :class="{selected:sub.selected}"
           :src="sub.picture"
           :alt="sub.name"
           :title="sub.name"
-        />
-       <span v-else>{{sub.name}}</span>
+          @click="ChangeSelected(sub,item)"
+          />
+       <span @click="ChangeSelected(sub,item)" :class="{selected:sub.selected}"  v-else>{{sub.name}}</span>
         </template>
       </dd>
     </dl>

@@ -248,11 +248,15 @@ export type GoodsInfo = {
   specs:Skus[]
 }
 
-type Skus = {
+export type Skus = {
   name: string
-  values: {
-    desc: string
-    name: string
-    picture: string
-  }[]
+  values: Values[]
+}
+
+
+export type Values = {
+  desc: string
+  name: string
+  picture: string
+  selected:boolean
 }
