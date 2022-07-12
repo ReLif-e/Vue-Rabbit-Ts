@@ -4,6 +4,8 @@ import userStore from '@/stores';
 import { watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 import GoodsImages from './components/goods-images.vue';
+import GoodsSales from './components/goods-sales.vue';
+import GoodsName from './components/goods-name.vue';
 
 const route = useRoute()
 console.log(route.params.id);
@@ -11,7 +13,9 @@ console.log(route.params.id);
 const {goods} =  userStore()
 watchEffect(()=>{
   // if(route.fullPath !== '/goods'+ route.params.id) return
+    goods.removeInfo()
     goods.GetInfo(route.params.id as string)
+
 })
 
 
@@ -40,11 +44,14 @@ watchEffect(()=>{
     </transition>
     </div>
         <!-- 商品信息 -->
-        <div class="goods-info">
+        <div v-if="goods.Info.mainPictures"  class="goods-info">
           <div class="media">
-           <GoodsImages v-if="goods.Info.mainPictures" :images='goods.Info.mainPictures'/>
+           <GoodsImages :images='goods.Info.mainPictures'/>
+           <GoodsSales />
           </div>
-          <div class="spec"></div>
+          <div class="spec">
+            <GoodsName :goods="goods.Info" />
+          </div>
         </div>
 
       <!-- 商品详情 -->

@@ -17,6 +17,9 @@ export default defineStore('goods',{
       }
      })
      this.Info = res.data.result
+    },
+    removeInfo(){
+      this.Info = {} as GoodsInfo
     }
 
   }
