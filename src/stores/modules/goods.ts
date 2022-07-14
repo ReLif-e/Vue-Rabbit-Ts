@@ -2,6 +2,7 @@ import {defineStore} from 'pinia'
 import axios from '@/utils/request'
 import { ApiRes,GoodsInfo } from '@/types'
 
+
 export default defineStore('goods',{
   state() {
       return{
@@ -20,7 +21,9 @@ export default defineStore('goods',{
     },
     removeInfo(){
       this.Info = {} as GoodsInfo
-    }
+    },
+
+
 
   }
 })

@@ -4,12 +4,20 @@ import { GoodsInfo, Skus, Values } from '@/types';
 import bwPowerSet from '@/utils/Power-set';
 
 
+
  const props =  defineProps<{
     goods:GoodsInfo
     skuId?:string
   }>()
 
-  // 点击事件，设置类得，获取高亮
+
+  // 子传父事件
+  const emit = defineEmits<{
+    (e:'changeSkuId',skuId:string):void
+  }>()
+
+  // 点击事件，设置类得，获取高亮，
+  // 获取对应id传输给父组件，用以修改不同商品的价格
   const ChangeSelected = (sub: Values,item:Skus) =>{
     if(sub.disabled) return
     // 排他思想，先删除全部得类，再赋值类
@@ -21,6 +29,28 @@ import bwPowerSet from '@/utils/Power-set';
     // 点击后获取选中状态的值
     getanyspecs()
     updateDisabled()
+
+  // 有一个数组，用以判断是否全选
+    const result = getanyspecs()
+    console.log(result);
+    
+    // 当三个全部选中才传输数据
+    const isAll = result.every(item=>item)
+    // console.log(isAll);
+
+    // 判断是否全部选中
+    if(isAll){
+
+    //  去映射表中找到对应的id
+    // 转换数据
+    const key = result.join('🗡')
+
+    // 找到对应的id
+    const val = pathMap[key]
+
+    // 触发事件
+    emit('changeSkuId',val[0])
+    }
   }
   
   // 测试算法

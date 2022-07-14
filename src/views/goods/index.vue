@@ -6,13 +6,14 @@ import { useRoute } from 'vue-router';
 import GoodsImages from './components/goods-images.vue';
 import GoodsSales from './components/goods-sales.vue';
 import GoodsName from './components/goods-name.vue';
-import { CityResult } from '@/components/city/index.vue';
 import GoodsSku from './components/goods-sku.vue';
 
 const route = useRoute()
 console.log(route.params.id);
 
 const {goods} =  userStore()
+
+// 监听路由变化
 watchEffect(()=>{
   // if(route.fullPath !== '/goods'+ route.params.id) return
     goods.removeInfo()
@@ -20,12 +21,18 @@ watchEffect(()=>{
 
 })
 
-const changeCity = (e:CityResult)=>{
-  console.log(e);
-  
-}
 
-</script>
+  // 子组件传递数据给父组件，以渲染不同商品的价格
+  const hChangeId = (id:string) =>{
+    const sky = goods.Info.skus.find(item=>item.id === id)
+    if(!sky) return
+
+    goods.Info.price = sky.price
+    goods.Info.oldPrice = sky.oldPrice
+    // goods.changePrice(sky)
+    
+  }
+  </script>
 <template>
   <div class="xtx-goods-page">
     <div class="container">
@@ -56,7 +63,7 @@ const changeCity = (e:CityResult)=>{
           </div>
           <div class="spec">
             <GoodsName   :goods="goods.Info" />
-            <GoodsSku  skuId="1369155864430120962"  :goods="goods.Info" />
+            <GoodsSku @change-sku-id="hChangeId"  skuId="1369155864430120962"  :goods="goods.Info" />
           </div>
         </div>
 
