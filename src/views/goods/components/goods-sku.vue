@@ -6,6 +6,7 @@ import bwPowerSet from '@/utils/Power-set';
 
  const props =  defineProps<{
     goods:GoodsInfo
+    skuId?:string
   }>()
 
   // 点击事件，设置类得，获取高亮
@@ -78,7 +79,7 @@ import bwPowerSet from '@/utils/Power-set';
         // }else{
         //   sub.disabled = true
         // }
-        
+
        const tempApp = getanyspecs()
        tempApp[index] = sub.name
        // console.log(tempApp);
@@ -110,9 +111,29 @@ import bwPowerSet from '@/utils/Power-set';
     return arr 
   }
 
+  const initSelectedSpec = ()=>{
+    // M沒有id就返回
+    if(!props.skuId) return
+    const result = props.goods.skus.find(item=>item.id === props.skuId)
+
+  // 傳輸錯誤i的id也返回
+    if(!result) return
+      const selectArr = result.specs.map(item=>item.valueName)
+    // 有id就便利尋找
+    props.goods.specs.forEach(item=>{
+      item.values.forEach(sub=>{
+        sub.selected = selectArr.includes(sub.name)
+      })
+    })
+  }
+
 
 const pathMap = getPathMap()
 console.log(pathMap);
+
+// 先默認選中
+initSelectedSpec()
+
 updateDisabled()
 
 </script>

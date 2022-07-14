@@ -56,7 +56,7 @@ const changeCity = (e:CityResult)=>{
           </div>
           <div class="spec">
             <GoodsName   :goods="goods.Info" />
-            <GoodsSku    :goods="goods.Info" />
+            <GoodsSku  skuId="1369155864430120962"  :goods="goods.Info" />
           </div>
         </div>
 
