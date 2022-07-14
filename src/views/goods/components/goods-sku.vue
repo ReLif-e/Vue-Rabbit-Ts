@@ -159,7 +159,7 @@ import bwPowerSet from '@/utils/Power-set';
 
 
 const pathMap = getPathMap()
-console.log(pathMap);
+// console.log(pathMap);
 
 // 先默認選中
 initSelectedSpec()

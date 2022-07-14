@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import userStore from '@/stores';
 
-import { watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 import GoodsImages from './components/goods-images.vue';
 import GoodsSales from './components/goods-sales.vue';
@@ -9,7 +9,7 @@ import GoodsName from './components/goods-name.vue';
 import GoodsSku from './components/goods-sku.vue';
 
 const route = useRoute()
-console.log(route.params.id);
+// console.log(route.params.id);
 
 const {goods} =  userStore()
 
@@ -32,6 +32,9 @@ watchEffect(()=>{
     // goods.changePrice(sky)
     
   }
+
+  // 在Vue3中V-model的接受属性是modelValue
+  const count = ref(1)
   </script>
 <template>
   <div class="xtx-goods-page">
@@ -64,6 +67,7 @@ watchEffect(()=>{
           <div class="spec">
             <GoodsName   :goods="goods.Info" />
             <GoodsSku @change-sku-id="hChangeId"  skuId="1369155864430120962"  :goods="goods.Info" />
+            <XtxNumbox v-model="count" :min='1' :max="10"/>
           </div>
         </div>
 

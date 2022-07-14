@@ -5,6 +5,7 @@ import XtxMore from '@/components/more/index.vue'
 import XtxBread from '@/components/bread/index.vue'
 import XtxBreadItem from '@/components/bread/item.vue'
 import XtxCity from '@/components/city/index.vue'
+import XtxNumbox from '@/components/numberbox/index.vue'
 import { useIntersectionObserver } from '@vueuse/core'
 import dImage from '@/assets/images/200.png'
 
@@ -16,6 +17,7 @@ export default {
     app.component(XtxBread.name, XtxBread)
     app.component(XtxBreadItem.name, XtxBreadItem)
     app.component(XtxCity.name, XtxCity)
+    app.component(XtxNumbox.name, XtxNumbox)
  
 
     // 自定义指令directive
