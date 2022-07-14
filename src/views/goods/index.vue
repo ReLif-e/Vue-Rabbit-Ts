@@ -34,6 +34,7 @@ watchEffect(()=>{
   }
 
   // 在Vue3中V-model的接受属性是modelValue
+  // 默认事件是update:modelValue
   const count = ref(1)
   </script>
 <template>
@@ -68,6 +69,7 @@ watchEffect(()=>{
             <GoodsName   :goods="goods.Info" />
             <GoodsSku @change-sku-id="hChangeId"  skuId="1369155864430120962"  :goods="goods.Info" />
             <XtxNumbox v-model="count" :min='1' :max="10"/>
+         <XtxButton type="primary" style="margin-top:20px;">1</XtxButton>
           </div>
         </div>
 
