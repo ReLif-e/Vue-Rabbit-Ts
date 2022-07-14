@@ -96,7 +96,7 @@ import bwPowerSet from '@/utils/Power-set';
      arr.push(result?.name || '')
      console.log(arr);
     });
-    
+
     // 返回一个数组对象
     return arr 
   }
