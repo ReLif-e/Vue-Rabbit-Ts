@@ -1,30 +1,36 @@
 <script lang="ts" setup name="XtxNumbox">
 
 
-//
+//接受负父组件的数据
 const props = defineProps<{
   modelValue:number
   min:number
   max:number
 }>()
 
+
+// 定义触发的事件盒要传递给父组件的数据
 const emit =  defineEmits<{
   (e:'update:modelValue',val:number):void
-  
 }>()
 
-
+// 在Vue3中V-model的接受属性是modelValue
+  // 默认事件是update:modelValue
+// 减法
 const sub = () =>{
   if(props.modelValue <= props.min) return
   emit('update:modelValue',props.modelValue - 1)
 }
 
+// 加法
 const add = () =>{
   if(props.modelValue >= props.max) return
   
   emit('update:modelValue',props.modelValue + 1)
 
 }
+
+
 </script>
 <template>
   <div class="xtx-numbox">
