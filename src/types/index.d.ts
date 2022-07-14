@@ -273,4 +273,5 @@ export type Values = {
   name: string
   picture: string
   selected:boolean
+  disabled:boolean
 }

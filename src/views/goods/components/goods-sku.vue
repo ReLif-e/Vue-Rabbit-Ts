@@ -1,7 +1,8 @@
 <script setup lang="ts" name="GoodsSku">
+import goods from '@/stores/modules/goods';
 import { GoodsInfo, Skus, Values } from '@/types';
 import bwPowerSet from '@/utils/Power-set';
-import { join } from 'path';
+
 
  const props =  defineProps<{
     goods:GoodsInfo
@@ -9,11 +10,15 @@ import { join } from 'path';
 
   // 点击事件，设置类得，获取高亮
   const ChangeSelected = (sub: Values,item:Skus) =>{
+    if(sub.disabled) return
     // 排他思想，先删除全部得类，再赋值类
-    item.values.forEach((item)=>item.selected = false)
+    item.values.filter(item=>item.name !== sub.name).forEach((item)=>item.selected = false)
 
     // 将类状态取反,设置高亮，设置类
     sub.selected = !sub.selected
+
+    // 点击后获取选中状态的值
+    getanyspecs()
   }
   
   // 测试算法
@@ -58,27 +63,66 @@ import { join } from 'path';
   })
      return ArrFn
   }
-getPathMap()
-console.log(getPathMap());
 
+  // 禁用状态
+  const updateDisabled = () =>{
+    props.goods.specs.forEach(item=>{
+      // console.log(item);
+      item.values.forEach(sub=>{
+        // console.log(sub);
+        
+        // 如果映射表里面有就不禁用
+        // if(sub.name in pathMap ){
+        //   sub.disabled = false
+        // }else{
+        //   sub.disabled = true
+        // }
+          sub.disabled =!(sub.name in pathMap)
+      })
+      
+    })
+  }
+
+  // 获取选中的状态
+  const getanyspecs = () => {
+
+    const arr :string[] = []
+
+    props.goods.specs.forEach(v => {
+      // 找到每一项选中的
+     const result =  v.values.find(item => item.selected)
+
+  // 将找到的添加到数组内,如果一行之间没有选中的添加一个空字符串
+     arr.push(result?.name || '')
+     console.log(arr);
+    });
+    
+    // 返回一个数组对象
+    return arr 
+  }
+
+
+const pathMap = getPathMap()
+// console.log(pathMap);映射表
+updateDisabled()
 
 </script>
 <template>
   <div class="goods-sku">
-    <dl v-for="item in goods.specs">
+    <dl v-for="item in props.goods.specs">
       <dt>{{item.name}}</dt>
       <dd>
         <template v-for="sub in item.values" :key="sub.name">
         <!-- 判断有没有图片地址有就渲染图片，没有就渲染文字 -->
           <img
           v-if="sub.picture"
-          :class="{selected:sub.selected}"
+          :class="{selected:sub.selected,disabled:sub.disabled}"
           :src="sub.picture"
           :alt="sub.name"
           :title="sub.name"
           @click="ChangeSelected(sub,item)"
           />
-       <span @click="ChangeSelected(sub,item)" :class="{selected:sub.selected}"  v-else>{{sub.name}}</span>
+       <span @click="ChangeSelected(sub,item)" :class="{selected:sub.selected, disabled:sub.disabled}"  v-else>{{sub.name}}</span>
         </template>
       </dd>
     </dl>
