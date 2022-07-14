@@ -19,6 +19,7 @@ import bwPowerSet from '@/utils/Power-set';
 
     // 点击后获取选中状态的值
     getanyspecs()
+    updateDisabled()
   }
   
   // 测试算法
@@ -66,7 +67,7 @@ import bwPowerSet from '@/utils/Power-set';
 
   // 禁用状态
   const updateDisabled = () =>{
-    props.goods.specs.forEach(item=>{
+    props.goods.specs.forEach((item,index)=>{
       // console.log(item);
       item.values.forEach(sub=>{
         // console.log(sub);
@@ -77,7 +78,15 @@ import bwPowerSet from '@/utils/Power-set';
         // }else{
         //   sub.disabled = true
         // }
-          sub.disabled =!(sub.name in pathMap)
+        
+       const tempApp = getanyspecs()
+       tempApp[index] = sub.name
+       // console.log(tempApp);
+
+      //  把名稱放入數組的索引内
+       const key = tempApp.filter(v=>v).join('🗡')
+
+       sub.disabled =!(key in pathMap)
       })
       
     })
@@ -94,7 +103,7 @@ import bwPowerSet from '@/utils/Power-set';
 
   // 将找到的添加到数组内,如果一行之间没有选中的添加一个空字符串
      arr.push(result?.name || '')
-     console.log(arr);
+    //  console.log(arr);
     });
 
     // 返回一个数组对象
@@ -103,7 +112,7 @@ import bwPowerSet from '@/utils/Power-set';
 
 
 const pathMap = getPathMap()
-// console.log(pathMap);映射表
+console.log(pathMap);
 updateDisabled()
 
 </script>
