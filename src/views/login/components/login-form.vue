@@ -1,21 +1,56 @@
 <script lang="ts" setup name="LoginForm">
 import Message from '@/components/message';
+import userStore from '@/stores';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
+// 导入路由
+const router = useRouter()
 
 const active = ref<'acount' | 'cateform'>('acount')
+// 导入方法
+const {user} = userStore()
 
-const isArgeen = ref(false)
+
+// 表单数据
+// const isArgeen = ref(false)
+const form = ref({
+  account: '',
+  password: '',
+  isAgree: false,
+})
 
 const login = ()=>{
-
-
   // Message({type:'success',text:'你好，靓仔',time:2000})
-
   // Message.success('芜湖')
-  Message.error('你愁啥')
-  Message.warning('禁止进入')
+  // Message.error('你愁啥')
+  // Message.warning('禁止进入')
+  // 表单校验---基础版
+   if (form.value.account === '') {
+    Message.error( '用户名或手机号不能为空')
+    return
+  }
+  if (form.value.password === '') {
+    Message.error( '密码不能为空')
 
+    return
+  }
+  if (!form.value.isAgree) {
+    Message.error( '请同意许可')
+    return
+  }
+  console.log('通过校验，可以发送请求')
+
+  // 发送请求
+  user.getUser(form.value)
+  // 登入成功跳转首页
+  try{
+    Message.success('登入成功')
+    router.push('/')
+  } catch(e){
+    // 失败提示用户
+    Message.error('检查用户名和密码')
+  }
 }
 
 </script>
@@ -34,14 +69,14 @@ const login = ()=>{
         <div class="form-item">
           <div class="input">
             <i class="iconfont icon-user"></i>
-            <input type="text" placeholder="请输入用户名或手机号" />
+            <input v-model="form.account" type="text" placeholder="请输入用户名或手机号" />
           </div>
           <!-- <div class="error"><i class="iconfont icon-warning" />请输入手机号</div> -->
         </div>
         <div class="form-item">
           <div class="input">
             <i class="iconfont icon-lock"></i>
-            <input type="password" placeholder="请输入密码" />
+            <input v-model="form.password" type="password" placeholder="请输入密码" />
           </div>
         </div>
       </template>
@@ -64,7 +99,7 @@ const login = ()=>{
         <div class="agree">
          
           <span>
-          <XtxCheckbox v-model="isArgeen">
+          <XtxCheckbox v-model="form.isAgree">
             我已同意
           </XtxCheckbox>
           </span>

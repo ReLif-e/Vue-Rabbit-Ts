@@ -116,6 +116,7 @@ export interface specialItem {
   viewNum: number;
   replyNum: number;
 }
+
 // 顶级分类类型
 export type TopCategory = {
   id: string
@@ -283,4 +284,22 @@ export type GoodsDetail = {
     name: string
     value: string
   }[]
+}
+
+
+
+
+// 登入
+interface userItem {
+  id: string;
+  account: string;
+  mobile: string;
+  token: string;
+  avatar: string;
+  nickname: string;
+  gender: string;
+  birthday?: any;
+  cityCode: string;
+  provinceCode: string;
+  profession: string;
 }
