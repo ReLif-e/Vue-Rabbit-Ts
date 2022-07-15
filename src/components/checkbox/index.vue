@@ -1,7 +1,7 @@
 <script lang="ts" setup name="XtxCheckbox">
 //获取传输数据
 defineProps<{
-  modelValue:boolean
+  modelValue?:boolean
 }>()
 
 
