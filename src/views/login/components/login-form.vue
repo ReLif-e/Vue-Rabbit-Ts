@@ -1,10 +1,15 @@
 <script lang="ts" setup name="LoginForm">
+import Message from '@/components/message';
 import { ref } from 'vue';
 
 
 const active = ref<'acount' | 'cateform'>('acount')
 
 const isArgeen = ref(false)
+
+const login = ()=>{
+  Message({type:'success',text:'你好，靓仔'})
+}
 
 </script>
 <template>
@@ -62,7 +67,7 @@ const isArgeen = ref(false)
           <a href="javascript:;">《服务条款》</a>
         </div>
       </div>
-      <a href="javascript:;" class="btn">登录</a>
+      <a href="javascript:;" class="btn" @click="login">登录</a>
     </div>
     <div class="action">
       <img
