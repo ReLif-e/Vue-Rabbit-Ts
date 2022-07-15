@@ -7,6 +7,7 @@ import XtxBreadItem from '@/components/bread/item.vue'
 import XtxCity from '@/components/city/index.vue'
 import XtxNumbox from '@/components/numberbox/index.vue'
 import XtxButton from '@/components/button/index.vue'
+import XtxCheckbox from '@/components/checkbox/index.vue'
 import { useIntersectionObserver } from '@vueuse/core'
 import dImage from '@/assets/images/200.png'
 
@@ -20,6 +21,7 @@ export default {
     app.component(XtxCity.name, XtxCity)
     app.component(XtxNumbox.name, XtxNumbox)
     app.component(XtxButton.name, XtxButton)
+    app.component(XtxCheckbox.name, XtxCheckbox)
  
 
     // 自定义指令directive
