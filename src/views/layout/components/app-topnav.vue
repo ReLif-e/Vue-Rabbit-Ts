@@ -1,17 +1,27 @@
 <script lang="ts" setup name="AppTopnav">
+import userStore from '@/stores';
+
 // 通栏
+const {user} = userStore()
 </script>
 
 <template>
   <nav class="app-topnav">
     <div class="container">
       <ul>
-        <li>
-          <a href="javascript:;"><i class="iconfont icon-user"></i>痴尘大可爱</a>
-        </li>
-        <li><a href="javascript:;">退出登录</a></li>
-        <li><router-link to="/login">请先登录</router-link></li>
-        <li><a href="javascript:;">免费注册</a></li>
+
+      <template v-if="user.userLogin.token">
+          <li>
+            <!-- <a href="javascript:;"><i class="iconfont icon-user"></i>{{user.userLogin.nickname}}</a> -->
+            <a href="javascript:;"><i class="iconfont icon-user"></i>痴尘大可爱</a>
+          </li>
+          <li><a href="javascript:;">退出登录</a></li>
+      </template>
+      <template v-else>
+          <li><router-link to="/login">请先登录</router-link></li>
+          <li><a href="javascript:;">免费注册</a></li>
+      </template>
+
         <li><a href="javascript:;">我的订单</a></li>
         <li><a href="javascript:;">会员中心</a></li>
         <li><a href="javascript:;">帮助中心</a></li>
