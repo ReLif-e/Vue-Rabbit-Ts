@@ -8,7 +8,14 @@ const active = ref<'acount' | 'cateform'>('acount')
 const isArgeen = ref(false)
 
 const login = ()=>{
-  Message({type:'success',text:'你好，靓仔'})
+
+
+  // Message({type:'success',text:'你好，靓仔',time:2000})
+
+  // Message.success('芜湖')
+  Message.error('你愁啥')
+  Message.warning('禁止进入')
+
 }
 
 </script>
