@@ -13,10 +13,10 @@ const active = ref<'acount' | 'cateform'>('acount')
 // 导入方法
 const {user} = userStore()
 
-watch(active,()=>{
-  // console.log(1);
-  resetForm()
-})
+  watch(active,()=>{
+    // console.log(1);
+    resetForm()
+  })
 
 // 表单数据
 // const isArgeen = ref(false)
@@ -46,7 +46,7 @@ const login = async ()=>{
   //   return
   // }
   console.log('通过校验，可以发送请求')
-
+    if(!isArgeeValuea) return
   // 发送请求
   user.getUser({account:accountValuea,password:passwordMessage})
   // 登入成功跳转首页
@@ -60,46 +60,96 @@ const login = async ()=>{
 }
 
     // 表单校验
- const {resetForm} =    useForm({
-      validationSchema:{
+//  const {resetForm} =    useForm({
+//       validationSchema:{
         // 校验的数据项,下面解构出来并v-model进行双向绑定
-        account(val:string){
-          // 对数据项校验
-            if(val?.length === 0) return '用户名错误了了'
-            if(!/^[a-zA-Z]\w{5,19}$/.test(val)) return '用户名字母开头,应为5~19位'
-            return true
-        },
-        password(val:string){
-          // 对数据项校验
-          if(val?.length === 0) return '用户名错误了了'
-          if(!/^\w{6,12}$/.test(val)) return '密码应为6~12位'
-          return true
-        },
-        isAgree(val:boolean){
-          if(!val) return '请同意协议'
-          return true
-        },
-       mobile: (value: string) => {
-          if (!value) return '请输入手机号'
-          if (!/^1[3-9]\d{9}$/.test(value)) return '手机号格式错误'
-          return true
-             },
-       code: (value: string) => {
-          if (!value) return '请输入验证码'
-          if (!/^\d{6}$/.test(value)) return '验证码格式错误'
-          return true
-          },
-         }
-       })
+//         account(val:string){
+//           // 对数据项校验
+//             if(val?.length === 0) return '用户名错误了了'
+//             if(!/^[a-zA-Z]\w{5,19}$/.test(val)) return '用户名字母开头,应为5~19位'
+//             return true
+//         },
+        // password(val:string){
+        //   // 对数据项校验
+        //   if(val?.length === 0) return '用户名错误了了'
+        //   if(!/^\w{6,12}$/.test(val)) return '密码应为6~12位'
+        //   return true
+        // },
+        // isAgree(val:boolean){
+        //   if(!val) return '请同意协议'
+        //   return true
+        // },
+      //  mobile: (value: string) => {
+      //     if (!value) return '请输入手机号'
+      //     if (!/^1[3-9]\d{9}$/.test(value)) return '手机号格式错误'
+      //     return true
+      //        },
+      //  code: (value: string) => {
+      //     if (!value) return '请输入验证码'
+      //     if (!/^\d{6}$/.test(value)) return '验证码格式错误'
+      //     return true
+      //     },
+      //    }
+      //  })
 
-    // 解构出value和errorMessage
-    // value表示里面的值
-    // errorMessage表示验证未通过的提示
-    const {value:accountValuea,errorMessage:accountMessage} = useField<string>('account')// 调用方法时的参数，必须和userForm里面定义的方法一致
-    const {value:passwordValuea,errorMessage:passwordMessage} = useField<string>('password')
-    const {value:isArgeeValuea,errorMessage:isArgeeMessage} = useField<boolean>('isAgree')
-    const {value:mobileValuea,errorMessage:mobileMessage} = useField<boolean>('mobile')
-    const {value:codeValuea,errorMessage:codeMessage} = useField<string>('code')
+      
+
+  // 删除表单验证，监听切换了就清除表单验证
+ const {resetForm} =  useForm({
+    validationSchema:{
+      account:(val:string)=>{
+        if(!val) return '用户名不能为空'
+        if(!/^[a-zA-Z]\w{5,10}$/.test(val)) return '用户名应是5~10位之间'
+        return true
+      },
+      password:(val:string)=>{
+        if(!val) return 
+        if(!/^\w{6,12}$/.test(val)) return '密码应是六到十二位之间'
+
+        return true
+      },
+      isArgee:(val:boolean)=>{
+        if(!val) return '请勾选协议'
+        return true
+      },
+      mobile:(val:string)=>{
+        if(!val) return '手机号不能为空'
+        if(!/^1[3-9]\d{9}$/.test(val)) return "手机号格式错误"
+        // !/^1[3-9]\d{9}$/.test(value)
+        return true
+      },
+      code:(val:string)=>{
+        if(!val) return '验证码不能为空'
+        if(!/^\d{6}$/.test(val)) return '验证码应是一到六位'
+        return true
+      }
+    }
+  })
+
+
+
+ const {value:accountValuea,errorMessage:accountMessage} =  useField<string>('account')
+ const {value:passwordValuea,errorMessage:passwordMessage} =  useField<string>('password')
+ const {value:isArgeeValuea,errorMessage:isArgeeMessage} =  useField<boolean>('isArgee')
+ const {value:mobileValuea,errorMessage:mobileMessage} =  useField<string>('mobile')
+ const {value:codeValuea,errorMessage:codeMessage} =  useField<string>('code')
+
+
+
+
+
+
+
+
+
+    // // 解构出value和errorMessage
+    // // value表示里面的值
+    // // errorMessage表示验证未通过的提示
+    // const {value:accountValuea,errorMessage:accountMessage} = useField<string>('account')// 调用方法时的参数，必须和userForm里面定义的方法一致
+    // const {value:passwordValuea,errorMessage:passwordMessage} = useField<string>('password')
+    // const {value:isArgeeValuea,errorMessage:isArgeeMessage} = useField<boolean>('isAgree')
+    // const {value:mobileValuea,errorMessage:mobileMessage} = useField<boolean>('mobile')
+    // const {value:codeValuea,errorMessage:codeMessage} = useField<string>('code')
 
 
 
@@ -115,6 +165,7 @@ const login = async ()=>{
       </a>
     </div>
     <div class="form">
+    <!-- 账号登入 -->
       <template v-if="active === 'acount'">
         <div class="form-item">
           <div class="input">
@@ -131,6 +182,7 @@ const login = async ()=>{
          <div v-if="passwordMessage" class="error"><i class="iconfont icon-warning" />{{passwordMessage}}</div>
         </div>
       </template>
+      <!-- 验证码登入 -->
       <template v-else>
         <div class="form-item">
           <div class="input">
