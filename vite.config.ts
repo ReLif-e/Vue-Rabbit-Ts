@@ -26,5 +26,13 @@ export default defineConfig({
         `
       }
     }
+  },
+  server:{
+    // 访问地址
+    host:'www.corho.com',
+    // 端口号
+    port:8080,
+    open:true,
+    cors:true
   }
 })

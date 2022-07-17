@@ -10,8 +10,20 @@
     />
     <title>老兔鲜儿</title>
   </head>
+      <script type="text/javascript"  charset="utf-8"
+        src="http://www.corho.com:8080/#/login/callback"
+        data-appid="100556005"
+        data-redirecturi="REDIRECTURI"
+    ></script>
   <body>
     <div id="app"></div>
+
     <script type="module" src="/src/main.ts"></script>
+    <span id="qqLoginBtn"></span>
+    <script type="text/javascript">
+        QC.Login({
+          btnId:"qqLoginBtn"	//插入按钮的节点id
+    });
+    </script>
   </body>
 </html>
