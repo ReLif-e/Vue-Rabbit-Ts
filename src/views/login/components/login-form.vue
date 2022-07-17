@@ -6,6 +6,7 @@ import { useRouter } from 'vue-router';
 // 导入校验库
 import {useField,useForm} from 'vee-validate'
 import { useIntervalFn } from '@vueuse/core';
+import { Counted } from '@/utils/hooks';
 
 // 导入路由
 const router = useRouter()
@@ -49,17 +50,27 @@ const login = async ()=>{
   // }
   // console.log('通过校验，可以发送请求')
   const res =await validate()
-    if(!res.valid) return
+    // if(!res.valid) return
   // 发送请求
+console.log(res);
+
   // 登入成功跳转首页
-  try{
+  if(active.value === 'acount'){
+    // 如果兜底校验中包含这三个就不发送请求
+    if(res.errors.account || res.errors.password || res.errors.isAgree) return
     user.getUser({account:accountValuea.value,password:passwordValuea.value})
-    Message.success('登入成功')
-    await router.push('/')
-  } catch(e){
-    // 失败提示用户
-    Message.error('检查用户名和密码')
+
+  }else{
+    // 如果兜底校验中包含这三个就不发送请求
+    if(res.errors.mobile || res.errors.code || res.errors.isAgree) return
+    user.mobileLogin({mobile:mobileValuea.value , code:codeValuea.value})
   }
+
+  // 提示
+  Message.success('登入成功')
+  // 跳转
+    await router.push('/')
+
 }
 
     // 表单校验
@@ -126,7 +137,15 @@ const login = async ()=>{
         if(!/^\d{6}$/.test(val)) return '验证码应是一到六位'
         return true
       }
-    }
+    },
+    //   // 默认值
+    // initialValues: {
+    //   mobileValuea: '13666666666',
+    //   codeValuea: '123456',
+    //   accountValuea: 'xiaotuxian001',
+    //   passwordValuea: '123456',
+    //   isArgeeValuea: true
+    // }
   })
 
 
@@ -148,45 +167,38 @@ const login = async ()=>{
   const cadeV = ref<HTMLInputElement | null>(null)
   const Phone = ref<HTMLInputElement | null>(null)
 
-    // 第三方定时器
-    const {pause,resume} = useIntervalFn(()=>{
-      // console.log(1);
-      timeId.value--
-      if(timeId.value === 0 ) pause()
-      
-    },1000,{
-      immediate:false
-    })
+// 动态传递倒计时
+  const {timeId,resume,start} =  Counted(55)
 
+  // 点击发送验证码
+    const send  = async ()=>{  
+      // 发送请求
+      const res = await validateId()
+      if(!res.valid) return  Phone.value?.focus()
 
+       // 获取焦点
+      cadeV.value?.focus()
 
-  // 短信倒计时
-  const timeId = ref(0)
-
-  // 发送验证码
-    const send  = async ()=>{
+      // 如果大于零不允许重复点击
       if(timeId.value > 0 ) return
-      timeId.value = 5
-      resume()
-  // 短信发送倒计时
-  //     if(timeId.value > 0) return
-  //      timeId.value = 6
-  //  const timend = setInterval(()=>{
-  //      timeId.value --
-  //     //  如果倒计时=0关闭定时器
-  //       if(timeId.value === 0 ){
-  //         clearInterval(timend)
-  //        }
-  //     },1000)
 
-      
-      // const res = await validateId()
-      // if(!res.valid) return  Phone.value?.focus()
-      // cadeV.value?.focus()
-      // // 发送给短信请求
-      // await user.getPhone(mobileValuea.value)
-      // Message.success('发送成功')
+      // 开启定时器
+      start()
+      // 发送给短信请求
+      await user.getPhone(mobileValuea.value)
+      Message.success('发送成功')
 
+
+      // 短信发送倒计时
+      //     if(timeId.value > 0) return
+      //      timeId.value = 6
+      //  const timend = setInterval(()=>{
+      //      timeId.value --
+      //     //  如果倒计时=0关闭定时器
+      //       if(timeId.value === 0 ){
+      //         clearInterval(timend)
+      //        }
+      //     },1000)
     }
 
 </script>

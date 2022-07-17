@@ -1,8 +1,15 @@
 <script lang="ts" setup name="AppTopnav">
+import router from '@/router';
 import userStore from '@/stores';
 
 // 通栏
 const {user} = userStore()
+
+
+const removeT = () =>{
+  user.removeToken()
+  router.push('/')
+}
 </script>
 
 <template>
@@ -12,10 +19,10 @@ const {user} = userStore()
 
       <template v-if="user.userLogin.token">
           <li>
-            <!-- <a href="javascript:;"><i class="iconfont icon-user"></i>{{user.userLogin.nickname}}</a> -->
-            <a href="javascript:;"><i class="iconfont icon-user"></i>痴尘大可爱</a>
+            <a href="javascript:;"><i class="iconfont icon-user"></i>{{user.userLogin.nickname || user.userLogin.token}}</a>
+            <!-- <a href="javascript:;"><i class="iconfont icon-user"></i>痴尘大可爱</a> -->
           </li>
-          <li><a href="javascript:;">退出登录</a></li>
+          <li><a href="javascript:;" @click="removeT">退出登录</a></li>
       </template>
       <template v-else>
           <li><router-link to="/login">请先登录</router-link></li>

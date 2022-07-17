@@ -1,4 +1,4 @@
-import { useIntersectionObserver } from "@vueuse/core"
+import { useIntersectionObserver, useIntervalFn } from "@vueuse/core"
 import { ref } from "vue"
 
 export function useLazyData(callback:()=>void){
@@ -27,3 +27,31 @@ export function useLazyData(callback:()=>void){
 //   })
 //   return target
 // }
+
+
+export function Counted(count:number){
+    // 短信倒计时
+    const timeId = ref(0)
+
+      // 第三方定时器
+      const {pause,resume} = useIntervalFn(()=>{
+        // console.log(1);
+        timeId.value--
+        // 关闭定时器
+        if(timeId.value === 0 ) pause()
+        
+      },1000,{
+        immediate:false //首次加载不执行
+      })
+      // 开启定时器的方法
+      const start = ()=>{
+        timeId.value = count
+        resume()
+      }
+
+  return{
+    resume,
+    timeId,
+    start
+  }
+}
