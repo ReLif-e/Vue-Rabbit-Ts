@@ -47,12 +47,13 @@ const login = async ()=>{
   //   Message.error( '请同意许可')
   //   return
   // }
-  console.log('通过校验，可以发送请求')
-    if(!isArgeeValuea) return
+  // console.log('通过校验，可以发送请求')
+  const res =await validate()
+    if(!res.valid) return
   // 发送请求
-  user.getUser({account:accountValuea,password:passwordMessage})
   // 登入成功跳转首页
   try{
+    user.getUser({account:accountValuea.value,password:passwordValuea.value})
     Message.success('登入成功')
     await router.push('/')
   } catch(e){
@@ -97,7 +98,7 @@ const login = async ()=>{
       
 
   // 删除表单验证，监听切换了就清除表单验证
- const {resetForm} =  useForm({
+ const {resetForm,validate} =  useForm({
     validationSchema:{
       account:(val:string)=>{
         if(!val) return '用户名不能为空'
@@ -105,7 +106,7 @@ const login = async ()=>{
         return true
       },
       password:(val:string)=>{
-        if(!val) return 
+        if(!val) return  '密码不能为空'
         if(!/^\w{6,12}$/.test(val)) return '密码应是六到十二位之间'
 
         return true
@@ -133,7 +134,7 @@ const login = async ()=>{
     const {value:accountValuea,errorMessage:accountMessage} =  useField<string>('account')
     const {value:passwordValuea,errorMessage:passwordMessage} =  useField<string>('password')
     const {value:isArgeeValuea,errorMessage:isArgeeMessage} =  useField<boolean>('isArgee')
-    const {value:mobileValuea,errorMessage:mobileMessage ,validate} =  useField<string>('mobile')
+    const {value:mobileValuea,errorMessage:mobileMessage ,validate:validateId} =  useField<string>('mobile')
     const {value:codeValuea,errorMessage:codeMessage} =  useField<string>('code')
 
     // // 解构出value和errorMessage
@@ -147,15 +148,15 @@ const login = async ()=>{
   const cadeV = ref<HTMLInputElement | null>(null)
   const Phone = ref<HTMLInputElement | null>(null)
 
-
-  const {pause,resume} = useIntervalFn(()=>{
-    // console.log(1);
-    timeId.value--
-    if(timeId.value === 0 ) pause()
-    
-  },1000,{
-    immediate:false
-  })
+    // 第三方定时器
+    const {pause,resume} = useIntervalFn(()=>{
+      // console.log(1);
+      timeId.value--
+      if(timeId.value === 0 ) pause()
+      
+    },1000,{
+      immediate:false
+    })
 
 
 
@@ -179,7 +180,7 @@ const login = async ()=>{
   //     },1000)
 
       
-      // const res = await validate()
+      // const res = await validateId()
       // if(!res.valid) return  Phone.value?.focus()
       // cadeV.value?.focus()
       // // 发送给短信请求
