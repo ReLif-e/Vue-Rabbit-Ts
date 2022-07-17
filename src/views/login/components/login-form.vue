@@ -5,6 +5,7 @@ import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 // 导入校验库
 import {useField,useForm} from 'vee-validate'
+import { useIntervalFn } from '@vueuse/core';
 
 // 导入路由
 const router = useRouter()
@@ -25,6 +26,7 @@ const {user} = userStore()
 //   password: '',
 //   isAgree: false,
 // })
+
 
 const login = async ()=>{
   // Message({type:'success',text:'你好，靓仔',time:2000})
@@ -128,19 +130,11 @@ const login = async ()=>{
 
 
 
- const {value:accountValuea,errorMessage:accountMessage} =  useField<string>('account')
- const {value:passwordValuea,errorMessage:passwordMessage} =  useField<string>('password')
- const {value:isArgeeValuea,errorMessage:isArgeeMessage} =  useField<boolean>('isArgee')
- const {value:mobileValuea,errorMessage:mobileMessage} =  useField<string>('mobile')
- const {value:codeValuea,errorMessage:codeMessage} =  useField<string>('code')
-
-
-
-
-
-
-
-
+    const {value:accountValuea,errorMessage:accountMessage} =  useField<string>('account')
+    const {value:passwordValuea,errorMessage:passwordMessage} =  useField<string>('password')
+    const {value:isArgeeValuea,errorMessage:isArgeeMessage} =  useField<boolean>('isArgee')
+    const {value:mobileValuea,errorMessage:mobileMessage ,validate} =  useField<string>('mobile')
+    const {value:codeValuea,errorMessage:codeMessage} =  useField<string>('code')
 
     // // 解构出value和errorMessage
     // // value表示里面的值
@@ -150,8 +144,49 @@ const login = async ()=>{
     // const {value:isArgeeValuea,errorMessage:isArgeeMessage} = useField<boolean>('isAgree')
     // const {value:mobileValuea,errorMessage:mobileMessage} = useField<boolean>('mobile')
     // const {value:codeValuea,errorMessage:codeMessage} = useField<string>('code')
+  const cadeV = ref<HTMLInputElement | null>(null)
+  const Phone = ref<HTMLInputElement | null>(null)
 
 
+  const {pause,resume} = useIntervalFn(()=>{
+    // console.log(1);
+    timeId.value--
+    if(timeId.value === 0 ) pause()
+    
+  },1000,{
+    immediate:false
+  })
+
+
+
+  // 短信倒计时
+  const timeId = ref(0)
+
+  // 发送验证码
+    const send  = async ()=>{
+      if(timeId.value > 0 ) return
+      timeId.value = 5
+      resume()
+  // 短信发送倒计时
+  //     if(timeId.value > 0) return
+  //      timeId.value = 6
+  //  const timend = setInterval(()=>{
+  //      timeId.value --
+  //     //  如果倒计时=0关闭定时器
+  //       if(timeId.value === 0 ){
+  //         clearInterval(timend)
+  //        }
+  //     },1000)
+
+      
+      // const res = await validate()
+      // if(!res.valid) return  Phone.value?.focus()
+      // cadeV.value?.focus()
+      // // 发送给短信请求
+      // await user.getPhone(mobileValuea.value)
+      // Message.success('发送成功')
+
+    }
 
 </script>
 <template>
@@ -187,15 +222,15 @@ const login = async ()=>{
         <div class="form-item">
           <div class="input">
             <i class="iconfont icon-user"></i>
-            <input v-model="mobileValuea" type="text" placeholder="请输入手机号" />
+            <input ref="Phone" v-model="mobileValuea" type="text" placeholder="请输入手机号" />
           </div>
           <div v-if="mobileMessage" class="error"><i class="iconfont icon-warning" />{{mobileMessage}}</div>
         </div>
         <div class="form-item">
           <div class="input">
             <i class="iconfont icon-code"></i>
-            <input v-model="codeValuea" type="text" placeholder="请输入验证码" />
-            <span class="code">发送验证码</span>
+            <input ref="cadeV" v-model="codeValuea" type="text" placeholder="请输入验证码" />
+            <span @click="send" class="code">{{timeId === 0 ? '发送验证码' :`${timeId}s后可发送`}}</span>
           </div>
           <div v-if="codeMessage" class="error"><i class="iconfont icon-warning" />{{codeMessage}}</div>
 

@@ -15,6 +15,13 @@ export default defineStore('user',{
       const res = await axios.post<ApiRes<userItem>>('/login',data)
       console.log(res);
       this.userLogin = res.data.result
+    },
+    async getPhone(mobile:string){
+      axios.get('/login/code',{
+        params:{
+          mobile
+        }
+      })
     }
   }
 })
