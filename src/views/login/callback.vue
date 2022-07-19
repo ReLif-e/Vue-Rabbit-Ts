@@ -17,7 +17,7 @@ const hasAccount = ref(true)
         @click="hasAccount = true"
       >
         <i class="iconfont icon-bind" />
-        <span>已有小兔鲜账号，请绑定手机</span>
+        <span>已有小兔鲜账号，请绑定手机1</span>
       </a>
       <a
         :class="{ active: !hasAccount }"
