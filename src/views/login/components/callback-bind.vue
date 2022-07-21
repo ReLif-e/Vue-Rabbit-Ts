@@ -1,13 +1,27 @@
 <script name="CallbackBind" lang="ts" setup>
+import Message from '@/components/message';
+import userStore from '@/stores';
 import { QQUserInfo, QQUserInfoRes } from '@/types';
+import { Counted } from '@/utils/hooks';
 import { codeRule, mobileRule } from '@/utils/validate';
 import { useField, useForm } from 'vee-validate';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+const router = useRouter()
+
+const {user} = userStore()
 
 const qqInfo = ref<QQUserInfo>()
 
+let openId = ''
 const isLogin = QC.Login.check()
 if(isLogin){
+  QC.Login.getMe(async id => {
+    openId = id
+
+   
+  }),
+
   QC.api('get_user_info').success((res:QQUserInfoRes)=>{
     qqInfo.value = res.data
   })
@@ -28,12 +42,26 @@ const ljbd = async () =>{
   const res = await validate()
   if(!res.valid) return
   console.log('兜底校验');
+  user.QQbind({
+    unionld:openId,
+    mobile:mobile.value,
+    code:code.value
+  })
+  Message.success('登入成功')
+  router.push('/')
 }
 
-const fsyzm = async () =>{
+const {timeId,start} = Counted(59)
+
+const bind = async () =>{
+  if(timeId.value > 0 ) return
   const res = await validateMobile()
   if(!res.valid) return
-  console.log('短信验证码');
+ 
+ const res1 =  await user.QQcode(mobile.value)
+ console.log(res1);
+ 
+  start()
 }
 </script>
 <template>
@@ -56,7 +84,9 @@ const fsyzm = async () =>{
       <div class="field">
         <i class="icon iconfont icon-code"></i>
         <input v-model="code" class="input" type="text" placeholder="短信验证码" />
-        <span class="code" @click="fsyzm">发送验证码</span>
+        <span class="code" @click="bind">
+        {{timeId === 0 ? '发送验证码1' : `${timeId}s后可重新发送`}}
+        </span>
       </div>
       <div class="error">{{codeMessage}}</div>
     </div>

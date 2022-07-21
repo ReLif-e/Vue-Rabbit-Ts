@@ -43,10 +43,30 @@ export default defineStore('user',{
 
     async QQlogin(data:{unionId:string,source:number}){
       // const res = await axios.post('/login/social',data)
-      const res = await axios.post('/login/social',data)
-      console.log(res);
+      const res = await axios.post<ApiRes<userItem>>('/login/social',data)
+      this.userLogin = res.data.result
+      setProfile( this.userLogin)
       
-    }
+    },
 
+    async QQcode(mobile:string){
+      // const res = await axios.post('/login/social',data)
+      const res = await axios.get<ApiRes<userItem>>('/login/social/code',{
+        params:{
+          mobile
+        }
+      })
+      this.userLogin = res.data.result
+      setProfile( this.userLogin)
+      
+    },
+
+    async QQbind(data:{unionld:string,mobile:string,code:string}){
+      // const res = await axios.post('/login/social',data)
+      const res = await axios.post<ApiRes<userItem>>('/login/social/bind',data)
+      this.userLogin = res.data.result
+      setProfile( this.userLogin)
+      
+    },
   }
 })
