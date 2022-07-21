@@ -28,7 +28,11 @@ instance.interceptors.response.use(
   function (error) {
     // 对响应错误做点什么
     if(error.response){
-      Message.error(error.response.data.message)
+      if(error.response.data.code){
+        Message.success('来到小兔仙，请绑定账号')
+      }else{
+        Message.error(error.response.data.message)
+      }
     }else{
       Message.error('网络错误，重试吧')
     }

@@ -6,3 +6,12 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+
+// 命名空间
+declare namespace QC {
+  const Login: {
+    check: () => boolean
+    getMe: (callback: (openId: string) => void) => void
+  }
+  const api: (api: 'get_user_info') => { success: (res: any) => void }
+}

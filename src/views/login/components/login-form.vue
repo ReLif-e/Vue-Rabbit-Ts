@@ -7,6 +7,7 @@ import { useRouter } from 'vue-router';
 import {useField,useForm} from 'vee-validate'
 import { useIntervalFn } from '@vueuse/core';
 import { Counted } from '@/utils/hooks';
+import { accountRule, codeRule, isArgeeRule, mobileRule, passwordRule } from '@/utils/validate';
 
 // 导入路由
 const router = useRouter()
@@ -111,33 +112,11 @@ console.log(res);
   // 删除表单验证，监听切换了就清除表单验证
  const {resetForm,validate} =  useForm({
     validationSchema:{
-      account:(val:string)=>{
-        if(!val) return '用户名不能为空'
-        if(!/^[a-zA-Z]\w{5,10}$/.test(val)) return '用户名应是5~10位之间'
-        return true
-      },
-      password:(val:string)=>{
-        if(!val) return  '密码不能为空'
-        if(!/^\w{6,12}$/.test(val)) return '密码应是六到十二位之间'
-
-        return true
-      },
-      isArgee:(val:boolean)=>{
-        if(!val) return '请勾选协议'
-        return true
-      },
-      mobile:(val:string)=>{
-        if(!val) return '手机号不能为空'
-        if(!/^1[3-9]\d{9}$/.test(val)) return "手机号格式错误"
-        // !/^1[3-9]\d{9}$/.test(value)
-        return true
-      },
-      code:(val:string)=>{
-        if(!val) return '验证码不能为空'
-        if(!/^\d{6}$/.test(val)) return '验证码应是一到六位'
-        return true
-      }
-    },
+      account:accountRule,
+      password:passwordRule,
+      isArgee:isArgeeRule,
+      mobile:mobileRule,
+      code:codeRule,
     //   // 默认值
     // initialValues: {
     //   mobileValuea: '13666666666',
@@ -145,7 +124,7 @@ console.log(res);
     //   accountValuea: 'xiaotuxian001',
     //   passwordValuea: '123456',
     //   isArgeeValuea: true
-    // }
+    }
   })
 
 

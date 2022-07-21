@@ -39,6 +39,13 @@ export default defineStore('user',{
     removeToken(){
       this.userLogin = {} as userItem
       removeProfile()
+    },
+
+    async QQlogin(data:{unionId:string,source:number}){
+      // const res = await axios.post('/login/social',data)
+      const res = await axios.post('/login/social',data)
+      console.log(res);
+      
     }
 
   }
